@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aline.movielist.R;
+import com.aline.movielist.helper.ImageHelper;
 import com.aline.movielist.movie.model.Movie;
 
 import java.util.List;
@@ -38,13 +39,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = movieList.get(position);
         if(movie != null) {
             holder.txtNameMovie.setText(movie.getName());
-            holder.txtSinopse.setText(movie.getSinopse());
+            holder.txtSinopse.setText(movie.getSynopsis());
+            ImageHelper.loadOriginalImage(holder.imgMovie, context, movie.getImageId());
         }
     }
 
     @Override
     public int getItemCount() {
         return movieList.size();
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
     }
 
     public  class MovieItemHolder extends RecyclerView.ViewHolder{
