@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MovieList</string>
+
+    <string name="best_movies_title">Melhores Filmes</string>
 </resources>
