@@ -3,6 +3,7 @@ package com.aline.movielist.helper;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.aline.movielist.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -17,6 +18,8 @@ public class ImageHelper {
         String imageUrl = URL_IMAGE_DEFAULT + imageId;
         Picasso.with(context)
                 .load(imageUrl)
+                .error(R.drawable.no_image_placeholder)
+                .placeholder(R.drawable.image_placeholder)
                 .into(imageView);
     }
 }
