@@ -17,13 +17,13 @@ import java.util.List;
 /**
  * Created by aline on 18/10/2017.
  */
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder>{
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder> {
 
     private List<Movie> movieList;
     private Context context;
     private View root;
 
-    public MovieListAdapter(List<Movie> movieList, Context context){
+    public MovieListAdapter(List<Movie> movieList, Context context) {
         this.movieList = movieList;
         this.context = context;
     }
@@ -37,7 +37,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public void onBindViewHolder(MovieItemHolder holder, int position) {
         Movie movie = movieList.get(position);
-        if(movie != null) {
+        if (movie != null) {
             holder.txtNameMovie.setText(movie.getName());
             holder.txtSinopse.setText(movie.getSynopsis());
             ImageHelper.loadOriginalImage(holder.imgMovie, context, movie.getImageId());
@@ -53,7 +53,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         this.movieList = movieList;
     }
 
-    public  class MovieItemHolder extends RecyclerView.ViewHolder{
+    public void addMovieList(List<Movie> movies) {
+
+        this.movieList.addAll(movies);
+    }
+
+    public class MovieItemHolder extends RecyclerView.ViewHolder {
         private ImageView imgMovie;
         private TextView txtNameMovie;
         private TextView txtSinopse;
@@ -61,7 +66,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         public MovieItemHolder(View itemView) {
             super(itemView);
 
-            imgMovie = (ImageView)itemView.findViewById(R.id.img_movie);
+            imgMovie = (ImageView) itemView.findViewById(R.id.img_movie);
             txtNameMovie = (TextView) itemView.findViewById(R.id.txt_movie_name);
             txtSinopse = (TextView) itemView.findViewById(R.id.txt_sinopse);
         }

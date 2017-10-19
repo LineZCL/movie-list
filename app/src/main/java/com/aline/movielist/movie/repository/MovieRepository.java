@@ -18,9 +18,9 @@ import retrofit2.Response;
  */
 public class MovieRepository extends BaseRepository{
 
-    public void getMovies(final RepositoryResponseListener<MovieResponse, String> listener){
+    public void getMovies(final RepositoryResponseListener<MovieResponse, String> listener, Integer page){
         MovieClient movieClient = ServiceGenerator.createService(MovieClient.class);
-        Call<MovieResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN);
+        Call<MovieResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN, page);
         requests.add(call);
 
         call.enqueue(new Callback<MovieResponse>() {

@@ -10,19 +10,32 @@ import com.aline.movielist.service.RepositoryResponseListener;
  */
 public class MoviePresenter {
 
+    private Integer lastPage;
+    private Integer totalPages;
+
+    public MoviePresenter(){
+        this.lastPage = 0;
+        this.totalPages = 1;
+    }
+
     public void getMovies(final MovieListener movieListener){
         MovieRepository movieRepository = new MovieRepository();
+        Integer pageNow = lastPage + 1;
 
-        movieRepository.getMovies(new RepositoryResponseListener<MovieResponse, String>() {
-            @Override
-            public void onSuccess(MovieResponse result) {
-                movieListener.fillMovies(result.getMovies());
-            }
+        if(pageNow <= totalPages) {
+            movieRepository.getMovies(new RepositoryResponseListener<MovieResponse, String>() {
+                @Override
+                public void onSuccess(MovieResponse result) {
+                    lastPage = result.getPage();
+                    totalPages = result.getTotalPages();
+                        movieListener.fillMovies(result.getMovies());
+                }
 
-            @Override
-            public void onError(String error) {
-                ///TODO: Arrumar esquema de erro.
-            }
-        });
+                @Override
+                public void onError(String error) {
+                    ///TODO: Arrumar esquema de erro.
+                }
+            }, pageNow);
+        }
     }
 }
