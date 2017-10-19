@@ -8,6 +8,7 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 
 /**
+ * Dagger component
  * Created by aline on 19/10/17.
  */
 

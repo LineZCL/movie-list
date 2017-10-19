@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * Class that conect to service.
  * Created by aline on 18/10/2017.
  */
 public class ServiceGenerator {
@@ -26,7 +27,12 @@ public class ServiceGenerator {
 
     }
 
-
+    /**
+     * Get retrofit connection.
+     * @param serviceClass
+     * @param <T>
+     * @return
+     */
     public <T> T createService(Class<T> serviceClass) {
         OkHttpClient.Builder okHttpClient = getHttpClient();
         Retrofit retrofit = builder.client(okHttpClient.build()).build();

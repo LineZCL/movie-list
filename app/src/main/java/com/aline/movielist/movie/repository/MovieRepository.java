@@ -16,6 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * Class of interactions with the service
  * Created by aline on 18/10/2017.
  */
 public class MovieRepository extends BaseRepository{
@@ -27,6 +28,11 @@ public class MovieRepository extends BaseRepository{
     public MovieRepository() {
     }
 
+    /**
+     * Search for movies on the service
+     * @param listener
+     * @param page
+     */
     public void getMovies(final RepositoryResponseListener<MovieResponse, String> listener, Integer page){
         MovieClient movieClient = serviceGenerator.createService(MovieClient.class);
         Call<MovieResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN, page);

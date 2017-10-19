@@ -8,6 +8,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
+ * This class is intended to provide all required retrofit objects.
+ *
  * Created by aline on 19/10/17.
  */
 
@@ -15,6 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
 
+    /**
+     * Provide retrofit builder to access the services.
+     * @return Retrofit.Builder
+     */
     @Provides
     public Retrofit.Builder provideRetrofitBuilder(){
         return new Retrofit.Builder()

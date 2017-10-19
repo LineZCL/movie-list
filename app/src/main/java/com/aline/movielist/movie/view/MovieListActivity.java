@@ -52,6 +52,11 @@ public class MovieListActivity extends Activity implements MovieListener {
         movieList.setAdapter(movieListAdapter);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        moviePresenter.cancelRequests();
+    }
 
     private RecyclerView.OnScrollListener getMoreMovies = new RecyclerView.OnScrollListener() {
         @Override

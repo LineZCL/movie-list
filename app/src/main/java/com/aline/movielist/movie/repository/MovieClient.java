@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
+ * Movie retrofit client.
  * Created by aline on 18/10/2017.
  */
 public interface MovieClient {

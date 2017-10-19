@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * Movie list adapter
  * Created by aline on 18/10/2017.
  */
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieItemHolder> {
@@ -42,7 +43,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         if (movie != null) {
             holder.txtNameMovie.setText(movie.getName());
             holder.txtSinopse.setText(movie.getSynopsis());
-            ImageHelper.loadOriginalImage(holder.imgMovie, context, movie.getImageId());
+            ImageHelper.loadImage(holder.imgMovie, context, movie.getImageId());
         }
     }
 

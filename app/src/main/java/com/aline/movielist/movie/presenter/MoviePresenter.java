@@ -8,6 +8,7 @@ import com.aline.movielist.service.RepositoryResponseListener;
 import javax.inject.Inject;
 
 /**
+ * Class responsible for movie's business rules.
  * Created by aline on 18/10/2017.
  */
 public class MoviePresenter {
@@ -24,6 +25,10 @@ public class MoviePresenter {
         this.totalPages = 1;
     }
 
+    /**
+     * Get movies in repository.
+     * @param movieListener
+     */
     public void getMovies(final MovieListener movieListener){
         Integer pageNow = lastPage + 1;
 
@@ -42,5 +47,12 @@ public class MoviePresenter {
                 }
             }, pageNow);
         }
+    }
+
+    /**
+     * Cancel all requests.
+     */
+    public void cancelRequests(){
+        movieRepository.cancelAll();
     }
 }

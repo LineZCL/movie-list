@@ -3,6 +3,7 @@ package com.aline.movielist.movie.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
+ * Movie model
  * Created by aline on 18/10/2017.
  */
 public class Movie {
