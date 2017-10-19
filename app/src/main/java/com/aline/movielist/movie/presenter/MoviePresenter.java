@@ -5,6 +5,8 @@ import com.aline.movielist.movie.repository.MovieRepository;
 import com.aline.movielist.movie.view.MovieListener;
 import com.aline.movielist.service.RepositoryResponseListener;
 
+import javax.inject.Inject;
+
 /**
  * Created by aline on 18/10/2017.
  */
@@ -13,13 +15,16 @@ public class MoviePresenter {
     private Integer lastPage;
     private Integer totalPages;
 
+    @Inject
+    MovieRepository movieRepository;
+
+    @Inject
     public MoviePresenter(){
         this.lastPage = 0;
         this.totalPages = 1;
     }
 
     public void getMovies(final MovieListener movieListener){
-        MovieRepository movieRepository = new MovieRepository();
         Integer pageNow = lastPage + 1;
 
         if(pageNow <= totalPages) {

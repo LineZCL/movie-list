@@ -5,18 +5,26 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.aline.movielist.MyApplication;
 import com.aline.movielist.R;
 import com.aline.movielist.movie.model.Movie;
 import com.aline.movielist.movie.presenter.MoviePresenter;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class MovieListActivity extends Activity implements MovieListener {
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView movieList;
-    private MovieListAdapter movieListAdapter;
-    private MoviePresenter moviePresenter;
+
+    @Inject
+    MovieListAdapter movieListAdapter;
+
+    @Inject
+    MoviePresenter moviePresenter;
 
     private Boolean canAddMovies;
 
@@ -24,6 +32,8 @@ public class MovieListActivity extends Activity implements MovieListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ((MyApplication) getApplication()).getMyApplicationComponent().inject(this);
 
         canAddMovies = true;
         super.onCreate(savedInstanceState);
@@ -33,11 +43,13 @@ public class MovieListActivity extends Activity implements MovieListener {
         layoutManager = new LinearLayoutManager(getBaseContext());
         movieList.setLayoutManager(layoutManager);
 
-
-        moviePresenter = new MoviePresenter();
         moviePresenter.getMovies(this);
 
         movieList.addOnScrollListener(getMoreMovies);
+
+        movieListAdapter.setMovieList(new ArrayList<Movie>());
+        movieListAdapter.setContext(this.getApplicationContext());
+        movieList.setAdapter(movieListAdapter);
     }
 
 
@@ -46,13 +58,13 @@ public class MovieListActivity extends Activity implements MovieListener {
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
-            if (dy > 0) //check for scroll downc
+            if (dy > 0) //check for scroll down
             {
                 visibleItemCount = layoutManager.getChildCount();
                 totalItemCount = layoutManager.getItemCount();
                 pastVisiblesItems = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                 if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                    if(canAddMovies) {
+                    if (canAddMovies) {
                         canAddMovies = false;
                         moviePresenter.getMovies(MovieListActivity.this);
                     }
@@ -64,13 +76,8 @@ public class MovieListActivity extends Activity implements MovieListener {
 
     @Override
     public void fillMovies(List<Movie> movies) {
-        if (movieListAdapter == null) {
-            movieListAdapter = new MovieListAdapter(movies, getApplicationContext());
-            movieList.setAdapter(movieListAdapter);
-        } else {
-            movieListAdapter.addMovieList(movies);
-            movieListAdapter.notifyDataSetChanged();
-        }
+        movieListAdapter.addMovieList(movies);
+        movieListAdapter.notifyDataSetChanged();
 
         canAddMovies = true;
     }

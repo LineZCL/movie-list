@@ -9,6 +9,8 @@ import com.aline.movielist.service.ServiceGenerator;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,8 +20,15 @@ import retrofit2.Response;
  */
 public class MovieRepository extends BaseRepository{
 
+    @Inject
+    ServiceGenerator serviceGenerator;
+
+    @Inject
+    public MovieRepository() {
+    }
+
     public void getMovies(final RepositoryResponseListener<MovieResponse, String> listener, Integer page){
-        MovieClient movieClient = ServiceGenerator.createService(MovieClient.class);
+        MovieClient movieClient = serviceGenerator.createService(MovieClient.class);
         Call<MovieResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN, page);
         requests.add(call);
 

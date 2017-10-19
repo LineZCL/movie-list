@@ -14,6 +14,8 @@ import com.aline.movielist.movie.model.Movie;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by aline on 18/10/2017.
  */
@@ -23,9 +25,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private Context context;
     private View root;
 
-    public MovieListAdapter(List<Movie> movieList, Context context) {
-        this.movieList = movieList;
-        this.context = context;
+    @Inject
+    public MovieListAdapter(){
+
     }
 
     @Override
@@ -51,6 +53,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
+    }
+
+    public void setContext(Context context){
+        this.context = context;
     }
 
     public void addMovieList(List<Movie> movies) {
