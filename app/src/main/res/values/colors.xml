@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorBlue">#129BE9</color>
-    <color name="colorLightBlue">#2ACDF6</color>
     <color name="colorBackground">#F8F9FA</color>
     <color name="colorTextBlue">#2B8AE2</color>
     <color name="colorDarkGray">#83807F</color>
-    <color name="colorLightGray">#D1DAE2</color>
 </resources>

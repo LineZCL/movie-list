@@ -1,6 +1,6 @@
 package com.aline.movielist.movie.presenter;
 
-import com.aline.movielist.movie.model.response.MovieResponse;
+import com.aline.movielist.movie.model.response.MoviesResponse;
 import com.aline.movielist.movie.repository.MovieRepository;
 import com.aline.movielist.movie.view.MovieListener;
 import com.aline.movielist.service.RepositoryResponseListener;
@@ -30,12 +30,13 @@ public class MoviePresenter {
      * @param movieListener
      */
     public void getMovies(final MovieListener movieListener){
-        Integer pageNow = lastPage + 1;
+        Integer currentPage = lastPage + 1;
 
-        if(pageNow <= totalPages) {
-            movieRepository.getMovies(new RepositoryResponseListener<MovieResponse, String>() {
+        boolean shouldLoadMore = currentPage <= totalPages;
+        if(shouldLoadMore) {
+            movieRepository.getMovies(new RepositoryResponseListener<MoviesResponse, String>() {
                 @Override
-                public void onSuccess(MovieResponse result) {
+                public void onSuccess(MoviesResponse result) {
                     lastPage = result.getPage();
                     totalPages = result.getTotalPages();
                         movieListener.fillMovies(result.getMovies());
@@ -43,9 +44,9 @@ public class MoviePresenter {
 
                 @Override
                 public void onError(String error) {
-                    ///TODO: Arrumar esquema de erro.
+                    movieListener.showError();
                 }
-            }, pageNow);
+            }, currentPage);
         }
     }
 

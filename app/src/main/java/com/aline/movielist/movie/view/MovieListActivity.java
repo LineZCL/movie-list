@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.aline.movielist.MyApplication;
 import com.aline.movielist.R;
@@ -39,23 +40,28 @@ public class MovieListActivity extends Activity implements MovieListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
 
-        movieList = findViewById(R.id.movies_list);
-        layoutManager = new LinearLayoutManager(getBaseContext());
-        movieList.setLayoutManager(layoutManager);
+        setupMovieList();
 
         moviePresenter.getMovies(this);
-
-        movieList.addOnScrollListener(getMoreMovies);
-
-        movieListAdapter.setMovieList(new ArrayList<Movie>());
-        movieListAdapter.setContext(this.getApplicationContext());
-        movieList.setAdapter(movieListAdapter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         moviePresenter.cancelRequests();
+    }
+
+    private  void setupMovieList(){
+        movieList = findViewById(R.id.movies_list);
+        layoutManager = new LinearLayoutManager(getBaseContext());
+        movieList.setLayoutManager(layoutManager);
+
+        movieList.addOnScrollListener(getMoreMovies);
+
+        movieListAdapter.setMovieList(new ArrayList<Movie>());
+        movieListAdapter.setContext(this.getApplicationContext());
+        movieList.setAdapter(movieListAdapter);
+
     }
 
     private RecyclerView.OnScrollListener getMoreMovies = new RecyclerView.OnScrollListener() {
@@ -85,5 +91,10 @@ public class MovieListActivity extends Activity implements MovieListener {
         movieListAdapter.notifyDataSetChanged();
 
         canAddMovies = true;
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getApplicationContext(), R.string.error_movies_list, Toast.LENGTH_LONG);
     }
 }

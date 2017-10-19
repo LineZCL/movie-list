@@ -9,7 +9,7 @@ import java.util.List;
  * Model that return of service
  * Created by aline on 18/10/2017.
  */
-public class MovieResponse {
+public class MoviesResponse {
     private Integer page;
     @SerializedName("total_pages")
     private Integer totalPages;

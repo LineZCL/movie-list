@@ -10,4 +10,5 @@ import java.util.List;
 public interface MovieListener {
 
     void fillMovies(List<Movie> movies);
+    void showError();
 }

@@ -3,11 +3,9 @@ package com.aline.movielist.movie.repository;
 import android.util.Log;
 
 import com.aline.movielist.core.BaseRepository;
-import com.aline.movielist.movie.model.response.MovieResponse;
+import com.aline.movielist.movie.model.response.MoviesResponse;
 import com.aline.movielist.service.RepositoryResponseListener;
 import com.aline.movielist.service.ServiceGenerator;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,14 +31,14 @@ public class MovieRepository extends BaseRepository{
      * @param listener
      * @param page
      */
-    public void getMovies(final RepositoryResponseListener<MovieResponse, String> listener, Integer page){
+    public void getMovies(final RepositoryResponseListener<MoviesResponse, String> listener, Integer page){
         MovieClient movieClient = serviceGenerator.createService(MovieClient.class);
-        Call<MovieResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN, page);
+        Call<MoviesResponse> call = movieClient.getMovies(ServiceGenerator.API_TOKEN, page);
         requests.add(call);
 
-        call.enqueue(new Callback<MovieResponse>() {
+        call.enqueue(new Callback<MoviesResponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 if(response.code() != 200){
                     String error = response.code() + " - " + response.errorBody().source();
                     Log.d("[Movie - ERROR]", error);
@@ -52,7 +50,7 @@ public class MovieRepository extends BaseRepository{
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<MoviesResponse> call, Throwable t) {
                 t.printStackTrace();
                 Log.d("[Movie - ERROR]", t.getMessage());
                 listener.onError(t.getMessage());
